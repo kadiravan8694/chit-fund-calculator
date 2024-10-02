@@ -1,10 +1,9 @@
 name: Deploy to GitHub Pages
 
-# Trigger the workflow on push to the main branch
 on:
   push:
     branches:
-      - main  # Replace with your default branch if different
+      - main  # Replace with your default branch
 
 jobs:
   build-and-deploy:
@@ -19,7 +18,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'  # Use Node.js 20
+          node-version: '20'
 
       # Step 3: Install dependencies
       - name: Install dependencies
@@ -34,6 +33,6 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build  # Ensure this matches your build directory
-          # Optional: Set a custom branch for GitHub Pages
+          publish_dir: ./build
+          # Optional: Specify a custom branch
           # branch: gh-pages
