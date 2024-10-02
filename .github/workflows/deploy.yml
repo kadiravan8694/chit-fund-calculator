@@ -1,33 +1,39 @@
 name: Deploy to GitHub Pages
 
-# Controls when the workflow will run
+# Trigger the workflow on push to the main branch
 on:
   push:
     branches:
-      - main  # Runs when a commit is pushed to the main branch
+      - main  # Replace with your default branch if different
 
-# Workflow jobs
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      # Step 1: Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
+      # Step 2: Set up Node.js environment
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: '14'
+          node-version: '20'  # Use Node.js 20
 
+      # Step 3: Install dependencies
       - name: Install dependencies
         run: npm install
 
-      - name: Build the project
+      # Step 4: Build the project
+      - name: Build project
         run: npm run build
 
+      # Step 5: Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
+          publish_dir: ./build  # Ensure this matches your build directory
+          # Optional: Set a custom branch for GitHub Pages
+          # branch: gh-pages
